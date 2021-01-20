@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 // import styles from '../ContactForm/ContactForm.module.css';
 
 class ContactForm extends Component {
-  static defaultProps = {
+  state = {
     name: '',
     number: '',
-  };
-  state = {
-    name: this.props.name,
-    number: this.props.number,
   };
 
   handleChange = event => {
@@ -20,8 +16,9 @@ class ContactForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const { name, number } = this.state;
+    const { onAddContact } = this.props;
 
-    this.props.onAddContact(name, number);
+    onAddContact(name, number);
     this.setState({ name: '', number: '' });
   };
 
@@ -50,7 +47,7 @@ class ContactForm extends Component {
           ></input>
         </label>
         <br />
-        <button className="btn" type="submit" disabled={!name || !number}>
+        <button className="btn" type="submit" disabled={!name && !number}>
           Add contact
         </button>
       </form>
